@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using std::cout;
 using std::cin;
@@ -15,6 +16,7 @@ using std::left;
 using std::setw;
 using std::fixed;
 using std::setprecision;
+using std::sort;
 
 class Studentas {
     string vardas;
@@ -60,7 +62,7 @@ public:
     // Destruktorius
     ~Studentas(){}
 
-    // Metodas kuris skaičiuoja galutinį pažymį
+    // Metodas kuris skaičiuoja vidurkį
     double gVid() const {
         int suma = 0;
         for (int pazymys : pazymiai) {
@@ -70,12 +72,33 @@ public:
         return 0.4 * vidurkis + 0.6 * egzaminas;
     }
 
-    // Metodas kuris išspausdina studento rezultatus
-    void rez() const {
+    // Metodas kuris skaičiuoja medianą
+    double gMed() const {
+        vector<int> temp = pazymiai;
+        sort(temp.begin(), temp.end());
+
+        double mediana;
+        if (temp.size() % 2 == 0) {
+            mediana = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
+        } else {
+            mediana = temp[temp.size() / 2];
+        }
+
+        return 0.4 * mediana + 0.6 * egzaminas;
+    }
+
+    // Metodas kuris išspausdina studento rezultatus pagal pasirinkimą
+    void rez(char metodas) const {
         cout << left << setw(15) << pavarde
-             << setw(20) << vardas
-             << setw(25) << fixed << setprecision(2) << gVid()
-             << endl;
+             << setw(20) << vardas;
+
+        if (metodas == 'v') {
+            cout << setw(25) << fixed << setprecision(2) << gVid();
+        } else if (metodas == 'm') {
+            cout << setw(25) << fixed << setprecision(2) << gMed();
+        }
+
+        cout << endl;
     }
 };
 
