@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <stdexcept>
 
 using std::cout;
 using std::cin;
@@ -17,6 +19,9 @@ using std::setw;
 using std::fixed;
 using std::setprecision;
 using std::sort;
+using std::ifstream;
+using std::exception;
+using std::getline;
 
 class Studentas {
     string vardas;
@@ -25,27 +30,15 @@ class Studentas {
     int egzaminas;
 
 public:
-
-    // Konstruktorius kuris gauna studento vardą, pavardę ir namų darbų kiekį
-    Studentas(const string& vardas, const string& pavarde, int namudarbai) 
-        : vardas(vardas), pavarde(pavarde) {
-        int pazymys;
-        // Renkami namų darbų pažymiai
-        for (int i = 0; i < namudarbai; ++i) {
-            cout << vardas << " " << pavarde << ": Įveskite " << (i + 1) << "-ojo namų darbo pažymį: ";
-            cin >> pazymys;
-            pazymiai.push_back(pazymys);
-        }
-
-        cout << "Įveskite egzamino pažymį: ";
-        cin >> egzaminas;
-    }
+    // Konstruktorius duomenims i� failo
+    Studentas(const string& vardas, const string& pavarde, const vector<int>& nd, int egzaminas)
+        : vardas(vardas), pavarde(pavarde), pazymiai(nd), egzaminas(egzaminas) {}
 
     // Kopijavimo konstruktorius
-    Studentas(const Studentas& Kopija): 
-        vardas(Kopija.vardas), 
+    Studentas(const Studentas& Kopija) :
+        vardas(Kopija.vardas),
         pavarde(Kopija.pavarde),
-        pazymiai(Kopija.pazymiai), 
+        pazymiai(Kopija.pazymiai),
         egzaminas(Kopija.egzaminas) {}
 
     // Priskyrimo operatorius
@@ -60,9 +53,9 @@ public:
     }
 
     // Destruktorius
-    ~Studentas(){}
+    ~Studentas() {}
 
-    // Metodas kuris skaičiuoja vidurkį
+    // Metodas kuris skai?iuoja vidurk?
     double gVid() const {
         int suma = 0;
         for (int pazymys : pazymiai) {
@@ -72,7 +65,7 @@ public:
         return 0.4 * vidurkis + 0.6 * egzaminas;
     }
 
-    // Metodas kuris skaičiuoja medianą
+    // Metodas kuris skai?iuoja median?
     double gMed() const {
         vector<int> temp = pazymiai;
         sort(temp.begin(), temp.end());
@@ -80,26 +73,55 @@ public:
         double mediana;
         if (temp.size() % 2 == 0) {
             mediana = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2.0;
-        } else {
+        }
+        else {
             mediana = temp[temp.size() / 2];
         }
 
         return 0.4 * mediana + 0.6 * egzaminas;
     }
 
-    // Metodas kuris išspausdina studento rezultatus pagal pasirinkimą
+    // Metodas kuris i�spausdina studento rezultatus pagal pasirinkim?
     void rez(char metodas) const {
         cout << left << setw(15) << pavarde
-             << setw(20) << vardas;
+            << setw(20) << vardas;
 
         if (metodas == 'v') {
             cout << setw(25) << fixed << setprecision(2) << gVid();
-        } else if (metodas == 'm') {
+        }
+        else if (metodas == 'm') {
             cout << setw(25) << fixed << setprecision(2) << gMed();
         }
 
         cout << endl;
     }
+
+    string getVardas() const { return vardas; }
+    string getPavarde() const { return pavarde; }
 };
+
+// Funkcija nuskaityti studentus i� failo
+vector<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
+    vector<Studentas> studentai;
+    ifstream failas(failoPavadinimas);
+
+    if (!failas) {
+        throw std::runtime_error("Nepavyko atidaryti failo: " + failoPavadinimas);
+    }
+
+    string pavarde, vardas;
+    int nd1, nd2, nd3, nd4, nd5, egzaminas;
+
+    // Ignoruojame antra�t?
+    string header;
+    getline(failas, header);
+
+    while (failas >> pavarde >> vardas >> nd1 >> nd2 >> nd3 >> nd4 >> nd5 >> egzaminas) {
+        vector<int> nd = { nd1, nd2, nd3, nd4, nd5 };
+        studentai.emplace_back(vardas, pavarde, nd, egzaminas);
+    }
+
+    return studentai;
+}
 
 #endif

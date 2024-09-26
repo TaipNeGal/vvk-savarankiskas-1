@@ -1,44 +1,40 @@
-#include "lib.h"
+﻿#include "lib.h"
 
 int main() {
-    int studentuSkaicius, namuDarbai;
-    string vardas, pavarde;
+    vector<Studentas> studentai;
+    string failoPavadinimas;
     char metodas;
-
 
     cout << "Pasirinkite metodą galutiniam balui apskaičiuoti (v - vidurkis, m - mediana): ";
     cin >> metodas;
 
     while (metodas != 'v' && metodas != 'm') {
-        cout << "Neteisingas įvestis. Įveskite 'v' arba 'm': ";
+        cout << "Neteisinga įvestis. Įveskite 'v' arba 'm': ";
         cin >> metodas;
     }
 
-    cout << "Įveskite studentų skaičių: ";
-    cin >> studentuSkaicius;
+    // Nuskaitome studentų duomenis iš failo
+    cout << "Įveskite failo pavadinimą su studentų duomenimis: ";
+    cin >> failoPavadinimas;
 
-    vector<Studentas> studentai;
-
-    for (int i = 0; i < studentuSkaicius; ++i) {
-        cout << "Vardas: ";
-        cin >> vardas;
-        cout << "Pavardė: ";
-        cin >> pavarde;
-
-        cout << "Namų darbų skaičius: ";
-        cin >> namuDarbai;
-
-        studentai.push_back(Studentas(vardas, pavarde, namuDarbai));
+    try {
+        studentai = nuskaitytiStudentusIsFailo(failoPavadinimas);
+    }
+    catch (const exception& e) {
+        cout << e.what() << endl;
+        return 1;
     }
 
+    // Išlyginame duomenų antraštę
     if (metodas == 'v') {
         cout << endl << left << setw(15) << "Pavardė"
-             << setw(20) << "Vardas"
-             << setw(25) << "Galutinis (Vid.)" << endl;
-    } else {
+            << setw(20) << "Vardas"
+            << setw(25) << "Galutinis (Vid.)" << endl;
+    }
+    else {
         cout << endl << left << setw(15) << "Pavardė"
-             << setw(20) << "Vardas"
-             << setw(25) << "Galutinis (Med.)" << endl;
+            << setw(20) << "Vardas"
+            << setw(25) << "Galutinis (Med.)" << endl;
     }
 
     cout << "--------------------------------------------------" << endl;
