@@ -8,6 +8,11 @@
 #include <algorithm>
 #include <fstream>
 #include <stdexcept>
+#include <random>
+#include <sstream>
+#include <list>
+#include <deque>
+#include <chrono>
 
 using std::cout;
 using std::cin;
@@ -22,6 +27,10 @@ using std::sort;
 using std::ifstream;
 using std::exception;
 using std::getline;
+using std::fixed;
+using std::to_string;
+using std::list;
+using std::deque;
 
 class Studentas {
     string vardas;
@@ -30,7 +39,7 @@ class Studentas {
     int egzaminas;
 
 public:
-    // Konstruktorius duomenims iš failo
+    // Konstruktorius duomenims iï¿½ failo
     Studentas(const string& vardas, const string& pavarde, const vector<int>& nd, int egzaminas)
         : vardas(vardas), pavarde(pavarde), pazymiai(nd), egzaminas(egzaminas) {}
 
@@ -81,7 +90,7 @@ public:
         return 0.4 * mediana + 0.6 * egzaminas;
     }
 
-    // Metodas kuris išspausdina studento rezultatus pagal pasirinkim?
+    // Metodas kuris iï¿½spausdina studento rezultatus pagal pasirinkim?
     void rez(char metodas) const {
         cout << left << setw(15) << pavarde
             << setw(20) << vardas;
@@ -100,7 +109,7 @@ public:
     string getPavarde() const { return pavarde; }
 };
 
-// Funkcija nuskaityti studentus iš failo
+// Funkcija nuskaityti studentus iï¿½ failo
 vector<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
     vector<Studentas> studentai;
     ifstream failas(failoPavadinimas);
@@ -112,7 +121,7 @@ vector<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
     string pavarde, vardas;
     int nd1, nd2, nd3, nd4, nd5, egzaminas;
 
-    // Ignoruojame antrašt?
+    // Ignoruojame antraï¿½t?
     string header;
     getline(failas, header);
 
