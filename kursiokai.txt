@@ -1,4 +1,0 @@
-Pavard?      Vardas      ND1  ND2  ND3  ND4  ND5  Egzaminas
-Jokubaitis   Rokas       8    9    10   6    10   9
-Kleiza       Linas       7    10   8    5    4    6
-Macijauskas  Arvydas     6    5    4    9    8    7
