@@ -15,6 +15,7 @@
 #include <chrono>
 #include <windows.h>
 #include <psapi.h>
+#include <stdexcept>
 
 using std::cout;
 using std::cin;
@@ -41,18 +42,15 @@ class Studentas {
     int egzaminas;
 
 public:
-    // Konstruktorius duomenims i� failo
     Studentas(const string& vardas, const string& pavarde, const vector<int>& nd, int egzaminas)
         : vardas(vardas), pavarde(pavarde), pazymiai(nd), egzaminas(egzaminas) {}
 
-    // Kopijavimo konstruktorius
     Studentas(const Studentas& Kopija) :
         vardas(Kopija.vardas),
         pavarde(Kopija.pavarde),
         pazymiai(Kopija.pazymiai),
         egzaminas(Kopija.egzaminas) {}
 
-    // Priskyrimo operatorius
     Studentas& operator=(const Studentas& Kopija) {
         if (this != &Kopija) {
             vardas = Kopija.vardas;
@@ -63,10 +61,8 @@ public:
         return *this;
     }
 
-    // Destruktorius
     ~Studentas() {}
 
-    // Metodas kuris skai?iuoja vidurk?
     double gVid() const {
         int suma = 0;
         for (int pazymys : pazymiai) {
@@ -76,7 +72,6 @@ public:
         return 0.4 * vidurkis + 0.6 * egzaminas;
     }
 
-    // Metodas kuris skai?iuoja median?
     double gMed() const {
         vector<int> temp = pazymiai;
         sort(temp.begin(), temp.end());
@@ -92,7 +87,6 @@ public:
         return 0.4 * mediana + 0.6 * egzaminas;
     }
 
-    // Metodas kuris i�spausdina studento rezultatus pagal pasirinkim?
     void rez(char metodas) const {
         cout << left << setw(15) << pavarde
             << setw(20) << vardas;
@@ -111,9 +105,8 @@ public:
     string getPavarde() const { return pavarde; }
 };
 
-// Funkcija nuskaityti studentus i� failo
-vector<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
-    vector<Studentas> studentai;
+deque<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
+    deque<Studentas> studentai;
     ifstream failas(failoPavadinimas);
 
     if (!failas) {
@@ -123,7 +116,6 @@ vector<Studentas> nuskaitytiStudentusIsFailo(const string& failoPavadinimas) {
     string pavarde, vardas;
     int nd1, nd2, nd3, nd4, nd5, egzaminas;
 
-    // Ignoruojame antra�t?
     string header;
     getline(failas, header);
 
