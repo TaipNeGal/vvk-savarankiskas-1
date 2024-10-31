@@ -1,5 +1,10 @@
 #include "lib.h"
 
+void parodytiAtminti() {
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) std::cout << "Naudojama atminties... " << pmc.WorkingSetSize / 1024 << " Kilobytes" << std::endl;
+}
+
 void generuotiStudentuDuomenis(const string& failoPavadinimas, int irasuKiekis) {
     std::ofstream failas(failoPavadinimas);
     std::random_device rd;
@@ -52,6 +57,8 @@ void rusiuotiStudentus(const string& inputFailas, const string& goodFailas, cons
 
     goodIsrasymas.close();
     badIsrasymas.close();
+    // Matuoju kiek panaudoja vietos
+    parodytiAtminti();
 }
 
 int main() {
