@@ -39,7 +39,7 @@ Realizavau programą kuri sugeneruoja penkis studenų sąrašus su: 1 000, 10 00
 
 Sugeneravus sąrašą galima jį rūšiuoja.
 
-Buvo išbandytos dvi strategijos and 10 000 000 studentų rušiavimui:
+Buvo išbandytos dvi strategijos ant 10 000 000 studentų rušiavimui:
 
 Pirma strategija: <br>
 Vector: Atminties sunaudota po rūšiavimo funkcijos: 4759352 KB = 4.76 GB <br>
