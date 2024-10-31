@@ -1,6 +1,6 @@
 <b>Programos aprašymas</b>
 
-<hr></hr>
+<hr>
 
 v0.1
 
@@ -22,7 +22,7 @@ Realizavau duomenų išvedimo metodą (perdengtas cout)
 Realizavau galutinio skaičiavimo metodą pagal vidurkį
 Realizavau galutinio skaičiavimo metodą pagal medianą (renkasi žmogus)
 
-<hr></hr>
+<hr>
 v0.2
 
 Visų studentų sąrašų iš: 1 000, 10 000, 100 000, 1 000 000, 10 000 000 įrašų, generavimo rezultatas.
@@ -31,7 +31,7 @@ Taip pat, rūšiavimo laikas
 Rusiavimo laikas - 54.0946 sec
 Bendras visų failų dydis ~1.4GB.
 
-<hr></hr>
+<hr>
 
 v1.0
 
@@ -57,4 +57,6 @@ Leidžia mažiau loginių operacijų naudoti ir norimas vertes kopijuoti galima.
 <br><br>
 Dar panaudojau std::transform - leido man suformatuoti kiekvieną Studentas objektą kaip eilutę prieš ją įrašant į failą.
 Šis metodas yra patogus, kai norime, kad originalus sąrašas studentai išliktų nepakitęs.
-<hr></hr>
+<hr>
+<b>Pridėjau .exe failą, kuris turėtų paleisti visą programą. Įkelti visų failų su CMake ir .bat negalėjau, nes failas per didelis.</b>
+<hr>
