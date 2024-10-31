@@ -13,6 +13,8 @@
 #include <list>
 #include <deque>
 #include <chrono>
+#include <windows.h>
+#include <psapi.h>
 
 using std::cout;
 using std::cin;
